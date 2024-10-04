@@ -22,68 +22,78 @@ else
     knightHealth = 100;
 }
 
+
 Console.WriteLine($"Knight health: {knightHealth}");
 Console.WriteLine($"Goblin health: {goblinHealth}");
 
 
-Console.WriteLine("Available actions:");
-Console.WriteLine("1. attack");
-Console.WriteLine("2. Heal");
-Console.Write("please select an action: ");
-string action = Console.ReadLine();
-int knightAttack = 10;
-int goblinattack = 5;
-int healKnight = 10;
-switch(action)
+//for (int attempt = 1; attempt <= 4; attempt++) dit is commentaar
+do
 {
-    case "1":
-        goblinHealth -= knightAttack;
+    Console.ForegroundColor = ConsoleColor.Blue;
+    Console.WriteLine("Available actions:");
+    Console.WriteLine("1. attack");
+    Console.WriteLine("2. Heal");
+    Console.Write("please select an action: ");
+    Console.ResetColor();
+    string action = Console.ReadLine();
+    int knightAttack = 10;
+    int goblinattack = 5;
+    int healKnight = 10;
+    switch (action)
+    {
+        case "1":
+            goblinHealth -= knightAttack;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"You attacked the goblin for {knightAttack} damage");
+            Console.ResetColor();
+            break;
+        case "2":
+            knightHealth += 10;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"You healed yourself for {healKnight} hp");
+            Console.ResetColor();
+            break;
+        default:
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Try again");
+            Console.ResetColor();
+            break;
+    }
+
+    if (goblinHealth > 0)
+    {
+        knightHealth -= goblinattack;
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"You attacked the goblin for {knightAttack} damage");
+        Console.WriteLine($"You were attacked by the goblin for {goblinattack}");
         Console.ResetColor();
-        break;
-    case "2":
-        knightHealth += 10;
-        Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"You healed yourself for {healKnight} hp");
-        Console.ResetColor();
-        break;
-    default: 
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("Try again");
-        Console.ResetColor();
-        break;
-}
-
-if (goblinHealth > 0)
-{
-    knightHealth -= goblinattack;
-    Console.ForegroundColor= ConsoleColor.Yellow;
-    Console.WriteLine($"You were attacked by the goblin for {goblinattack}");
-}
-  
+    }
 
 
-if (knightHealth <= 0)
-{
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("De knight is overleden");
-    Console.ResetColor();
+
+    if (knightHealth <= 0)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("De knight is overleden");
+        Console.ResetColor();
+    }
+    else
+    {
+        Console.WriteLine($"De knight heeft {knightHealth} HP");
+    }
+    if (goblinHealth <= 0)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("De goblin is overleden");
+        Console.ResetColor();
+    }
+    else
+    {
+        Console.WriteLine($"De goblin heeft {goblinHealth} HP");
+    }
 }
-else
-{
-    Console.WriteLine($"De knight heeft {knightHealth} HP");
-}
-if (goblinHealth <= 0)
-{
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("De goblin is overleden");
-    Console.ResetColor();
-}
-else
-{
-    Console.WriteLine($"De goblin heeft {goblinHealth} HP");
-}
+while (goblinHealth > 0 && knightHealth > 0);
+
 
 
 
